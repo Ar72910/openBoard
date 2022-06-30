@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* body{
+            border: 1px solid rgb(112, 226, 241);
+        }
+        html{
+            border:1px solid rgb(214, 130, 130);
+        }
+        .outer{
+            border: 4px solid purple;
+        }
+        *{
+            border:1px solid rgb(160, 54, 54);
+        } */
+
+        div{
+            border: 1px solid rgb(62, 62, 110);
+            /* background-color: lightpink; */
+        }
+        .red{
+            background-color: red;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+        .blue{
+            background-color: blue;
+            width:35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+        .green{
+            background-color: green;
+            width:35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+        .outer{
+            height: 50px;;
+            width:200px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .color-area{
+            border: 1px solid gray;
+            height: 200px;
+            width:200px;
+            margin-top: 30px;
+            margin-left: 40px;
+         }
+        
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="red"></div>
+        <div class="green"></div>
+        <div class="blue"></div>
+    </div>
+
+    <div class="color-area"></div>
+    <script>
+       let colorArea = document.querySelector(".color-area");
+       let redColor = document.querySelector(".red");
+       let blueColor = document.querySelector(".blue");
+       let greenColor = document.querySelector(".green");
+       
+       
+    //    colorArea.style.backgroundColor = "lightcyan";
+       
+       redColor.addEventListener("click",function(){
+        
+        colorArea.style.backgroundColor = "red";
+       })
+       blueColor.addEventListener("click",function(){
+        
+        colorArea.style.backgroundColor = "blue";
+       })
+       greenColor.addEventListener("click",function(){
+        colorArea.style.backgroundColor =  "green";
+       })
+       
+       
+    
+    </script>
+</body>
+</html>

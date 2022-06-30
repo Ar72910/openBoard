@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin:0px;
+            /* padding: 0px; */
+        }
+        .fas{
+            font-size: 2rem;
+            margin-right:30px;
+            margin-left: 30px;
+            margin-top: 20px;
+            /* background-color: gray; */
+        }
+
+        .icon-palate{
+            height: 57px;
+            background-color: rgb(189, 185, 185);
+            margin-top: -5px;
+            width:400px;
+            margin:auto;
+            display: flex;
+            justify-content: space-evenly;
+    /* margin:auto */    
+}  
+
+        .red{
+            background-color: red;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-top: 19px;
+        }
+        .blue{
+            background-color: blue;
+            width:25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-top: 19px;
+        }
+        .green{
+            background-color: green;
+            width:25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-top: 19px;
+        }
+        
+
+    </style>
+    <link rel ="stylesheet"
+    href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+
+<body>
+    <!-- <h1>Canvas example</h1> -->
+    <div class="icon-palate">
+        
+        <i class="fas fa-square"></i>
+        <i class="fas fa-grip-lines-vertical"></i>
+        <i class="fas fa-pencil-alt"></i>
+        <div class="red"></div>
+        <div class="green"></div>
+        <div class="blue"></div>
+  
+    </div>
+
+
+    <canvas></canvas>
+   
+    
+</body>
+
+<script>
+    let canvasBoard = document.querySelector("canvas");
+//  canvasBoard.height = "100";
+    let rectTool = document.querySelector(".fa-square");
+    let lineTool = document.querySelector(".fa-grip-lines-vertical");
+    let pencilTool = document.querySelector(".fa-pencil-alt");
+    let body = document.querySelector("body");
+    
+    let cTool = "rectTool";
+    
+    canvasBoard.height = window.innerHeight;
+    canvasBoard.width = window.innerWidth;
+
+    // the line gives you the tool to draw on the board
+    let tool = canvasBoard.getContext("2d");
+    
+    // changing the color to green
+    // tool.fillStyle="green";
+    // by default the color is black 
+    // tool.fillRect(10,30,200,200);
+
+    // changing the stoke color
+    // tool.strokeStyle = "red";
+    // boundarirs draw by default black
+
+    // tool.strokeRect(50,50,200,200);
+    
+    // tools logic
+    rectTool.addEventListener("click",function(){
+        cTool = "rectTool";
+    })
+    lineTool.addEventListener("click",function(){
+        cTool = "lineTool";
+    })
+    pencilTool.addEventListener("click",function(){
+        cTool = "pencilTool";
+    })
+
+    let boardTop = canvasBoard.getBoundingClientRect().top;
+    let boardLeft = canvasBoard.getBoundingClientRect().left;
+    let iX,iY,fX,fY;
+    body.addEventListener("mousedown",function(e){
+        // alert("mouse was pressed on body");
+        // console.log("e"+ e);
+        // x,y pos when mouse is pressed
+        // let xPos = e.clientX;
+        // let yPos = e.clientY;
+        // console.log(xPos, yPos);
+        iX = e.clientX + boardLeft;
+        iY =  e.clientY - boardTop;
+
+    }) 
+    // mousemove drawing pencile
+    let drawingMode = false;
+    body.addEventListener("mousedown",function(){
+        drawingMode = true;
+    })
+    body.addEventListener("mouseup",function(){
+        drawingMode =  false;
+
+    })
+    
+    body.addEventListener("mousemove",function(e){
+       if(cTool == "pencilTool"){
+        
+        if(drawingMode == true){
+        fX = e.clientX - boardLeft;
+        fY = e.clientY - boardTop;
+        tool.beginPath();
+        tool.moveTo(iX,iY);
+        tool.lineTo(fX,fY);
+        tool.stroke();
+        iX = fX;
+        iY = fY;
+        }
+    }
+    
+})
+
+
+    
+    // color logic 
+    let colorArea = document.querySelector(".color-area");
+       let redColor = document.querySelector(".red");
+       let blueColor = document.querySelector(".blue");
+       let greenColor = document.querySelector(".green");
+
+       redColor.addEventListener("click",function(){
+        
+        tool.strokeStyle = "red";
+       })
+       blueColor.addEventListener("click",function(){
+        
+        tool.strokeStyle = "blue";
+       })
+       greenColor.addEventListener("click",function(){
+        tool.strokeStyle =  "green";
+       })
+     
+  // mouse up
+    body.addEventListener("mouseup",function(e){
+        // alert("mouse is up");
+        // let xPos = e.clientX;
+        // let yPos = e.clientY;
+        // console.log(xPos, yPos);
+        fX = e.clientX + boardLeft;
+        fY = e.clientY - boardTop;
+        let height = fY - iY;
+        let width = fX - iX;
+        if(cTool == "rectTool"){
+        tool.strokeRect(iX,iY,width,height);
+        }
+        if(cTool == "lineTool"){
+            tool.beginPath();
+            tool.moveTo(iX, iY);
+            tool.lineTo(fX, fY);
+            tool.stroke();
+        }
+    })
+    
+</script>
+</html>
